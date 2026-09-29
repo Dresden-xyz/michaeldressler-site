@@ -162,12 +162,10 @@ export const site: SiteContent = {
       "He graduated cum laude from Monmouth University with a Bachelor of Arts in Communication and minors in Business Administration and Screen Studies. He is based in San Francisco.",
     ],
     stats: [
+      { value: "10 yrs", label: "In crypto" },
       { value: "100+", label: "Partner integrations at 0G L1 launch" },
       { value: "400+", label: "Integrations across the 0G ecosystem" },
-      {
-        value: "4 yrs",
-        label: "At Chainlink Labs, Partnership Success to Ecosystem Growth Lead",
-      },
+      { value: "95%+", label: "Chainlink market share by TVL across major chains" },
     ],
   },
 

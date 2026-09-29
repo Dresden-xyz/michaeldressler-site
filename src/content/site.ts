@@ -156,9 +156,10 @@ export const site: SiteContent = {
   about: {
     heading: "Turning integrations into ecosystems",
     paragraphs: [
-      "Michael Dressler is Head of Success at 0G Labs, where he leads partner success, ecosystem adoption, and post-integration growth across 0G's modular decentralized AI stack. Since joining 0G in June 2025, he has worked hands-on with Tier 1 infrastructure providers, AI builders, and DeFi protocols, helping launch the 0G L1 ecosystem through mainnet and token generation with 100+ partner integrations live.",
-      "Before 0G, Michael spent nearly four years at Chainlink Labs, progressing from Partnership Success Manager to Ecosystem Growth Lead. There he helped build the Ecosystem Growth team and supported Web3 and AI startups from early stages to scale, contributing to Chainlink's dominant market share in Total Value Secured across several blockchains. He is also the founder of DCA Strategies LLC, an advisory practice for early-stage startups.",
-      "Michael graduated cum laude from Monmouth University with a Bachelor of Arts in Communications and minors in Business Administration and Screen Studies. He is based in San Francisco.",
+      "Michael Dressler is Head of Success at 0G Labs, where he leads partner success, ecosystem adoption, and post-integration growth across 0G’s modular decentralized AI stack. Since joining 0G in 2025, he has worked closely with leading infrastructure providers, AI builders, and DeFi protocols, helping launch and scale the 0G L1 ecosystem through Mainnet and TGE with 100+ partner integrations live.",
+      "Before 0G, Michael spent nearly four years at Chainlink Labs, progressing from Partnership Success Manager to Ecosystem Growth Lead. He helped build the Ecosystem Growth function and supported Web3 and AI companies from early-stage integration through scaled adoption. His work included developing market analysis and penetration frameworks that contributed to Chainlink achieving 95%+ market share by TVL across major blockchain ecosystems, including Ethereum, Polygon, Arbitrum, and BNB, while supporting an ecosystem securing more than $1 trillion in total value secured.",
+      "Michael is also the founder of DCA Strategies LLC, an advisory practice focused on helping early-stage startups refine go-to-market strategy, partnerships, and ecosystem growth.",
+      "He graduated cum laude from Monmouth University with a Bachelor of Arts in Communication and minors in Business Administration and Screen Studies. He is based in San Francisco.",
     ],
     stats: [
       { value: "100+", label: "Partner integrations at 0G L1 launch" },

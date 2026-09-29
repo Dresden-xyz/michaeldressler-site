@@ -49,9 +49,13 @@ export interface Role {
 }
 
 export interface Talk {
+  /** Event or series name */
   event: string;
-  title: string;
-  year: string;
+  /** Talk, panel, or session title. Omit when only the event is known. */
+  title?: string;
+  /** Free-form date shown as-is, e.g. "Oct 7, 2026" or "2026" */
+  date: string;
+  location?: string;
   href?: string;
 }
 
@@ -99,6 +103,9 @@ export interface SiteContent {
   experience: Role[];
   speaking: {
     topics: string[];
+    /** Upcoming appearances, soonest first */
+    upcoming: Talk[];
+    /** Past appearances, most recent first */
     talks: Talk[];
   };
   photos: Photo[];
@@ -116,6 +123,7 @@ export interface SiteContent {
   headings: {
     experience: string;
     speaking: string;
+    upcomingTalks: string;
     talks: string;
     photos: string;
     media: string;
@@ -246,14 +254,48 @@ export const site: SiteContent = {
       "AI agents on-chain and trust-minimized AI",
       "Lessons from Chainlink and 0G on scaling integrations",
     ],
+    upcoming: [
+      {
+        event: "Agentic Zero, SF Tech Week by a16z",
+        date: "Oct 7, 2026",
+        location: "The Avalon, San Francisco",
+        href: "https://lnkd.in/p/gkWW6zjt",
+      },
+    ],
     talks: [
+      {
+        event: "Côte d'Azur Carré d'Or with FP Block, during EthCC, Cannes",
+        title: "Panel: Hardened Security in an AI-Driven World",
+        date: "Apr 1, 2026",
+        href: "https://lnkd.in/p/gA5fFv35",
+      },
       {
         event:
           "The Scaling Summit: House of AI by 499, 0G & Hetu, ETHDenver, Denver",
         title:
           "Panel: How AI becomes trust-minimized, composable, and usable at scale",
-        year: "2026",
+        date: "2026",
         href: "https://luma.com/ScalingEthDenver",
+      },
+      {
+        event: "Dormint Privacy Masters, X Space",
+        title:
+          "Blockchain's third era: from proof of work to programmable networks to privacy",
+        date: "Nov 21, 2025",
+        href: "https://x.com/Dormint_io/status/1991884068351611061",
+      },
+      {
+        event: "Dormint Privacy Masters, X Space",
+        title:
+          "ZK proofs, FHE, and TEEs: secure data use, digital ownership, and sovereignty",
+        date: "Nov 14, 2025",
+        href: "https://x.com/Dormint_io/status/1989347545865404746",
+      },
+      {
+        event: "Agents Unleashed, ArtScience Museum, Singapore",
+        title: "Panel: Prediction markets x AI",
+        date: "Oct 1, 2025",
+        href: "https://x.com/autonolas/status/1978461055316840571",
       },
     ],
   },
@@ -361,6 +403,7 @@ export const site: SiteContent = {
   headings: {
     experience: "Where I've worked",
     speaking: "Topics I speak about",
+    upcomingTalks: "Upcoming",
     talks: "Past talks",
     photos: "On stage and around the ecosystem",
     media: "Press, podcasts & video",
@@ -376,7 +419,10 @@ export function getSections(content: SiteContent): { id: SectionId; label: strin
     {
       id: "speaking",
       label: "Speaking",
-      show: content.speaking.topics.length > 0 || content.speaking.talks.length > 0,
+      show:
+        content.speaking.topics.length > 0 ||
+        content.speaking.upcoming.length > 0 ||
+        content.speaking.talks.length > 0,
     },
     { id: "photos", label: "Photos", show: content.photos.length > 0 },
     { id: "media", label: "Media", show: content.media.length > 0 },

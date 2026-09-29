@@ -47,6 +47,7 @@ export default function HomePage() {
           <Speaking
             speaking={site.speaking}
             heading={site.headings.speaking}
+            upcomingHeading={site.headings.upcomingTalks}
             talksHeading={site.headings.talks}
           />
         )}

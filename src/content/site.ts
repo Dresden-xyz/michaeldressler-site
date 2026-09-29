@@ -129,15 +129,15 @@ export const site: SiteContent = {
   // TODO: replace with the final domain once chosen (CONTENT.md > Global > Final domain).
   siteUrl: "https://michaeldressler-site.vercel.app",
   title:
-    "Michael Dressler — Head of Success at 0G Labs | Decentralized AI & Web3 Infrastructure",
+    "Michael Dressler — Head of Partner Success at 0G Labs | Decentralized AI & Web3 Infrastructure",
   description:
-    "Head of Success at 0G Labs. Ex-Chainlink Labs. Building partner success and ecosystem growth for decentralized AI and Web3 infrastructure.",
+    "Head of Partner Success at 0G Labs. Ex-Chainlink Labs. Building partner success and ecosystem growth for decentralized AI and Web3 infrastructure.",
   twitterHandle: "@mdressler24",
 
   hero: {
     tagline: "Decentralized AI + Web3 Infrastructure",
     descriptor:
-      "Head of Success at **0G Labs**, leading partner success, ecosystem adoption, and post-integration growth across 0G's modular decentralized AI stack. Previously at Chainlink Labs, where he helped build the Ecosystem Growth team. Ecosystem developer on a mission to bring decentralized AI to production.",
+      "Head of Partner Success at **0G Labs**, leading partner success, ecosystem adoption, and post-integration growth across 0G's modular decentralized AI stack. Previously at Chainlink Labs, where he helped build the Ecosystem Growth team. Ecosystem developer on a mission to bring decentralized AI to production.",
     tags: [
       "Partner Success",
       "Ecosystem Growth",
@@ -163,7 +163,7 @@ export const site: SiteContent = {
   about: {
     heading: "Turning integrations into ecosystems",
     paragraphs: [
-      "Michael Dressler is Head of Success at 0G Labs, where he leads partner success, ecosystem adoption, and post-integration growth across 0G’s modular decentralized AI stack. Since joining 0G in 2025, he has worked closely with leading infrastructure providers, AI builders, and DeFi protocols, helping launch and scale the 0G L1 ecosystem through Mainnet and TGE with 100+ partner integrations live.",
+      "Michael Dressler is Head of Partner Success at 0G Labs, where he leads partner success, ecosystem adoption, and post-integration growth across 0G’s modular decentralized AI stack. Since joining 0G in 2025, he has worked closely with leading infrastructure providers, AI builders, and DeFi protocols, helping launch and scale the 0G L1 ecosystem through Mainnet and TGE with 100+ partner integrations live.",
       "Before 0G, Michael spent nearly four years at Chainlink Labs, progressing from Partnership Success Manager to Ecosystem Growth Lead. He helped build the Ecosystem Growth function and supported Web3 and AI companies from early-stage integration through scaled adoption. His work included developing market analysis and penetration frameworks that contributed to Chainlink achieving 95%+ market share by TVL across major blockchain ecosystems, including Ethereum, Polygon, Arbitrum, and BNB, while supporting an ecosystem securing more than $1 trillion in total value secured.",
       "Michael is also the founder of DCA Strategies LLC, an advisory practice focused on helping early-stage startups refine go-to-market strategy, partnerships, and ecosystem growth.",
       "He graduated cum laude from Monmouth University with a Bachelor of Arts in Communication and minors in Business Administration and Screen Studies. He is based in San Francisco.",
@@ -182,7 +182,7 @@ export const site: SiteContent = {
       dates: "2025 — Present",
       positions: [
         {
-          title: "Head of Success",
+          title: "Head of Partner Success",
           dates: "2025 — Present",
           description:
             "Leads partner success, ecosystem adoption, and post-integration growth for 0G's decentralized AI operating system. Helped take the 0G L1 through mainnet launch and token generation event, onboarding infrastructure, AI, DeFi, and custody partners including Chainlink, Goldsky, Safe, Fireblocks, and BitGo.",

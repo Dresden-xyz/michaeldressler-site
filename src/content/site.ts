@@ -148,7 +148,7 @@ export const site: SiteContent = {
       src: "/images/hero.jpg",
       // Event identified from the stage backdrop in the photo; matches the ETHDenver talk below.
       alt: "Michael Dressler speaking on a panel at The Scaling Summit: House of AI, ETHDenver 2026",
-      width: 1344,
+      width: 1642,
       height: 1008,
     },
   },

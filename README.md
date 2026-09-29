@@ -8,7 +8,7 @@ Everything the site displays lives in one typed file: [`src/content/site.ts`](sr
 
 - **Copy and links**: edit the strings in `site.ts`. The hero descriptor supports `**bold**`.
 - **Adding or removing a section**: a section renders only when it has content. For example, add items to `media: []` and the Media section (and its nav link) appear automatically. Empty `photos` hides the gallery.
-- **Images**: put files in `public/images/` and reference them as `/images/<file>` with their real `width` and `height`. The hero uses `public/images/hero.jpg`; gallery images are `photo-01.jpg` onward. Originals in `public/images/MD Website/` are git-ignored and not deployed.
+- **Images**: put files in `public/images/` and reference them as `/images/<file>` with their real `width` and `height`. The hero uses `public/images/hero-centered.jpg`; gallery images are `photo-01.jpg` onward. Originals in `public/images/MD Website/` are git-ignored and not deployed.
 - **Domain**: set `siteUrl` in `site.ts` to the final domain. It drives the canonical URL, Open Graph URLs, `robots.txt`, and `sitemap.xml`.
 - **Icons and social image**: `src/app/favicon.ico`, `icon.png`, `apple-icon.png`, and `opengraph-image.jpg` are picked up by Next.js automatically. Replace the files to change them.
 

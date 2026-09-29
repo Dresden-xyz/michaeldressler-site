@@ -145,7 +145,7 @@ export const site: SiteContent = {
     },
     secondaryCta: { label: "@mdressler24", href: "https://x.com/mdressler24" },
     photo: {
-      src: "/images/hero.jpg",
+      src: "/images/hero-centered.jpg",
       // Event identified from the stage backdrop in the photo; matches the ETHDenver talk below.
       alt: "Michael Dressler speaking on a panel at The Scaling Summit: House of AI, ETHDenver 2026",
       width: 1642,

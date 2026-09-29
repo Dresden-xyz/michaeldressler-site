@@ -34,11 +34,18 @@ export interface Stat {
   label: string;
 }
 
-export interface Role {
-  dates: string;
+export interface Position {
   title: string;
-  company: string;
+  dates: string;
   description?: string;
+}
+
+/** One company block. `positions` is most recent first; the first is the headline role. */
+export interface Role {
+  company: string;
+  /** Overall span at the company, shown in the left column */
+  dates: string;
+  positions: Position[];
 }
 
 export interface Talk {
@@ -171,45 +178,62 @@ export const site: SiteContent = {
 
   experience: [
     {
-      dates: "2025 — Present",
-      title: "Head of Success",
       company: "0G Labs",
-      description:
-        "Leads partner success, ecosystem adoption, and post-integration growth for 0G's decentralized AI operating system. Helped take the 0G L1 through mainnet launch and token generation event, onboarding infrastructure, AI, DeFi, and custody partners including Chainlink, Goldsky, Safe, Fireblocks, and BitGo.",
+      dates: "2025 — Present",
+      positions: [
+        {
+          title: "Head of Success",
+          dates: "2025 — Present",
+          description:
+            "Leads partner success, ecosystem adoption, and post-integration growth for 0G's decentralized AI operating system. Helped take the 0G L1 through mainnet launch and token generation event, onboarding infrastructure, AI, DeFi, and custody partners including Chainlink, Goldsky, Safe, Fireblocks, and BitGo.",
+        },
+      ],
     },
     {
-      dates: "2025",
-      title: "Advisor, Ecosystem & Partnership Growth",
       company: "K3 Labs",
+      dates: "2025 — 2026",
+      positions: [
+        {
+          title: "Advisor, Ecosystem & Partnership Growth",
+          dates: "2025 — 2026",
+        },
+      ],
     },
     {
-      dates: "2023 — 2025",
-      title: "Ecosystem Growth Lead (Go-to-Market)",
       company: "Chainlink Labs",
-      description:
-        "Built and led ecosystem growth for Chainlink's data and cross-chain products, supporting Web3 and AI startups from early stage through scale.",
+      dates: "2021 — 2025",
+      positions: [
+        {
+          title: "Ecosystem Growth Lead (Go-to-Market)",
+          dates: "2023 — 2025",
+          description:
+            "Built and led ecosystem growth for Chainlink's data and cross-chain products, supporting Web3 and AI startups from early stage through scale.",
+        },
+        {
+          title: "Senior Partnership Success Manager",
+          dates: "2022 — 2023",
+          description:
+            "Hybrid business development and customer success role owning partner relationships across DeFi protocols and L1/L2 ecosystems.",
+        },
+        {
+          title: "Partnership Success Manager",
+          dates: "2021 — 2022",
+          description:
+            "Managed onboarding and post-integration success for protocol partners integrating Chainlink oracles.",
+        },
+      ],
     },
     {
-      dates: "2022 — 2023",
-      title: "Senior Partnership Success Manager",
-      company: "Chainlink Labs",
-      description:
-        "Hybrid business development and customer success role owning partner relationships across DeFi protocols and L1/L2 ecosystems.",
-    },
-    {
-      dates: "2021 — 2022",
-      title: "Partnership Success Manager",
-      company: "Chainlink Labs",
-      description:
-        "Managed onboarding and post-integration success for protocol partners integrating Chainlink oracles.",
-    },
-    {
-      // TODO: start year not confirmed in CONTENT.md
-      dates: "Present",
-      title: "Founder & CEO",
       company: "DCA Strategies LLC",
-      description:
-        "Advisory practice helping early-stage startups with market positioning, go-to-market, and fundraising.",
+      dates: "2017 — Present",
+      positions: [
+        {
+          title: "Founder & CEO",
+          dates: "2017 — Present",
+          description:
+            "Advisory practice helping early-stage startups with market positioning, go-to-market, and fundraising.",
+        },
+      ],
     },
   ],
 

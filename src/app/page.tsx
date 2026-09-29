@@ -21,7 +21,7 @@ export default function HomePage() {
     name: site.name,
     url: site.siteUrl,
     image: `${site.siteUrl}${site.hero.photo.src}`,
-    jobTitle: site.experience[0]?.title,
+    jobTitle: site.experience[0]?.positions[0]?.title,
     worksFor: site.experience[0]
       ? { "@type": "Organization", name: site.experience[0].company }
       : undefined,

@@ -7,6 +7,7 @@ import { Hero } from "@/components/Hero";
 import { Media } from "@/components/Media";
 import { Nav } from "@/components/Nav";
 import { Photos } from "@/components/Photos";
+import { PhotosCarouselSection } from "@/components/PhotosCarouselSection";
 import { Recognition } from "@/components/Recognition";
 import { Speaking } from "@/components/Speaking";
 
@@ -52,7 +53,16 @@ export default function HomePage() {
             cardsHeading={site.headings.eventCards}
           />
         )}
-        {has("photos") && <Photos photos={site.photos} heading={site.headings.photos} />}
+        {has("photos") &&
+          (site.galleryStyle === "carousel" ? (
+            <PhotosCarouselSection
+              photos={site.photos}
+              heading={site.headings.photos}
+              theme={site.theme}
+            />
+          ) : (
+            <Photos photos={site.photos} heading={site.headings.photos} />
+          ))}
         {has("media") && <Media items={site.media} heading={site.headings.media} />}
         {has("recognition") && (
           <Recognition honors={site.recognition} heading={site.headings.recognition} />

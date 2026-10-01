@@ -87,6 +87,8 @@ export interface Honor {
 export interface SiteContent {
   /** Color scheme for the whole site. "dark" is near-black with off-white text. */
   theme: "light" | "dark";
+  /** "grid" is the tiled gallery with a lightbox; "carousel" is the WebGL liquid-glass row. */
+  galleryStyle: "grid" | "carousel";
   name: string;
   /** Short name shown in the nav */
   navName: string;
@@ -146,6 +148,7 @@ export interface SiteContent {
 
 export const site: SiteContent = {
   theme: "dark",
+  galleryStyle: "carousel",
   name: "Michael A. Dressler",
   navName: "Michael Dressler",
   // TODO: replace with the final domain once chosen (CONTENT.md > Global > Final domain).

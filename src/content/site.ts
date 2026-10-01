@@ -151,8 +151,7 @@ export const site: SiteContent = {
   galleryStyle: "carousel",
   name: "Michael A. Dressler",
   navName: "Michael Dressler",
-  // TODO: replace with the final domain once chosen (CONTENT.md > Global > Final domain).
-  siteUrl: "https://michaeldressler-site.vercel.app",
+  siteUrl: "https://www.michaeldressler.com",
   title:
     "Michael Dressler — Head of Partner Success at 0G Labs | Decentralized AI & Web3 Infrastructure",
   description:

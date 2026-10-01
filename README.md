@@ -36,4 +36,4 @@ The project deploys on Vercel with zero configuration.
 npx vercel --prod --scope dresden1
 ```
 
-After the first deploy, add the custom domain in the Vercel project settings and update `siteUrl` in `src/content/site.ts`.
+The production domain is https://www.michaeldressler.com (the bare domain redirects to it). `siteUrl` in `src/content/site.ts` must match it.

@@ -305,18 +305,19 @@ export const site: SiteContent = {
   // Captions below were taken from signage visible in each photo. Review and edit freely.
   photos: [
     {
-      src: "/images/photo-10.jpg",
-      alt: "Michael Dressler speaking into a microphone on a three-person panel at The Scaling Summit: House of AI, ETHDenver 2026",
-      caption: "The Scaling Summit: House of AI, ETHDenver 2026",
-      width: 2000,
-      height: 1333,
+      src: "/images/photo-06.jpg",
+      alt: "Michael Dressler speaking with a microphone on the Agents Unleashed panel",
+      caption: "Agents Unleashed, October 2025",
+      width: 1280,
+      height: 960,
     },
     {
-      src: "/images/photo-11.jpg",
-      alt: "Michael Dressler speaking into a microphone to a seated crowd at an evening event",
-      width: 1127,
-      height: 2000,
-      focus: "50% 42%",
+      src: "/images/photo-13.jpg",
+      alt: "Michael Dressler speaking into a microphone to a seated audience at a bar venue in Cannes",
+      caption: "Cannes",
+      width: 914,
+      height: 1380,
+      focus: "50% 30%",
     },
     {
       src: "/images/photo-12.jpg",
@@ -327,24 +328,17 @@ export const site: SiteContent = {
       focus: "50% 45%",
     },
     {
-      src: "/images/photo-06.jpg",
-      alt: "Michael Dressler speaking with a microphone on the Agents Unleashed panel",
-      caption: "Agents Unleashed, October 2025",
-      width: 1280,
-      height: 960,
+      src: "/images/photo-10.jpg",
+      alt: "Michael Dressler speaking into a microphone on a three-person panel at The Scaling Summit: House of AI, ETHDenver 2026",
+      caption: "The Scaling Summit: House of AI, ETHDenver 2026",
+      width: 2000,
+      height: 1333,
     },
     {
       src: "/images/photo-03.jpg",
       alt: "Michael Dressler speaking on a panel with three other speakers at an evening event",
       width: 2000,
       height: 1127,
-    },
-    {
-      src: "/images/photo-04.jpg",
-      alt: "Michael Dressler standing with another attendee outside the EthCC[9] entrance",
-      caption: "EthCC[9]",
-      width: 2000,
-      height: 1333,
     },
     {
       src: "/images/photo-07.jpg",
@@ -364,6 +358,13 @@ export const site: SiteContent = {
       alt: "Michael Dressler in front of a climbing wall that reads 'The future is ETH + AI'",
       width: 960,
       height: 1280,
+    },
+    {
+      src: "/images/photo-04.jpg",
+      alt: "Michael Dressler standing with another attendee outside the EthCC[9] entrance",
+      caption: "EthCC[9]",
+      width: 2000,
+      height: 1333,
     },
   ],
 

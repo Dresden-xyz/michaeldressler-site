@@ -1,11 +1,31 @@
 @import "tailwindcss";
 
-@theme {
-  --color-paper: #f5f4f0;
-  --color-ink: #141414;
-  --color-muted: #63635c;
-  --color-line: #dedcd4;
-  --color-pill: #ebe9e2;
+/* Light palette (default) */
+:root {
+  --paper: #f5f4f0;
+  --ink: #141414;
+  --muted: #63635c;
+  --line: #dedcd4;
+  --pill: #ebe9e2;
+  color-scheme: light;
+}
+
+/* Dark palette, selected by site.theme in src/content/site.ts */
+:root[data-theme="dark"] {
+  --paper: #0a0a0a;
+  --ink: #f5f4f0;
+  --muted: #a6a69e;
+  --line: #262626;
+  --pill: #171717;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-pill: var(--pill);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;

@@ -85,6 +85,8 @@ export interface Honor {
 }
 
 export interface SiteContent {
+  /** Color scheme for the whole site. "dark" is near-black with off-white text. */
+  theme: "light" | "dark";
   name: string;
   /** Short name shown in the nav */
   navName: string;
@@ -143,6 +145,7 @@ export interface SiteContent {
 }
 
 export const site: SiteContent = {
+  theme: "dark",
   name: "Michael A. Dressler",
   navName: "Michael Dressler",
   // TODO: replace with the final domain once chosen (CONTENT.md > Global > Final domain).
@@ -424,19 +427,8 @@ export const site: SiteContent = {
   // No press, podcasts, or videos were provided in CONTENT.md. Add items here to enable the Media section.
   media: [],
 
-  recognition: [
-    { title: "Cum Laude", issuer: "Monmouth University", year: "2013" },
-    {
-      title: "Dean's List, 6 consecutive terms",
-      issuer: "Monmouth University",
-      year: "2010 — 2012",
-    },
-    {
-      title: "Founding Brother, Phi Kappa Psi (NJ Beta)",
-      issuer: "Monmouth University",
-      year: "2009",
-    },
-  ],
+  // Awards section removed on 2026-10-01; add entries here to bring it back.
+  recognition: [],
 
   contact: {
     heading: "Get in touch",

@@ -42,6 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      data-theme={site.theme}
       className={`${inter.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body

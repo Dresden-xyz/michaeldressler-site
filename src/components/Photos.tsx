@@ -79,11 +79,11 @@ export function Photos({ photos, heading }: { photos: Photo[]; heading: string }
           role="dialog"
           aria-modal="true"
           aria-label={current.caption ?? current.alt}
-          className="fixed inset-0 z-50 flex flex-col bg-ink/95 text-paper"
+          className="fixed inset-0 z-50 flex flex-col bg-black/95 text-white"
           onClick={close}
         >
           <div className="flex items-center justify-between px-4 py-3 md:px-6">
-            <p className="text-sm text-paper/70">
+            <p className="text-sm text-white/70">
               {index! + 1} / {photos.length}
             </p>
             <button
@@ -91,7 +91,7 @@ export function Photos({ photos, heading }: { photos: Photo[]; heading: string }
               type="button"
               onClick={close}
               aria-label="Close"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-paper/10 focus-visible:outline-paper"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-white/10 focus-visible:outline-white"
             >
               <X size={22} aria-hidden="true" />
             </button>
@@ -116,7 +116,7 @@ export function Photos({ photos, heading }: { photos: Photo[]; heading: string }
                   type="button"
                   onClick={() => step(-1)}
                   aria-label="Previous photo"
-                  className="absolute left-2 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/60 hover:bg-paper/10 focus-visible:outline-paper md:left-4"
+                  className="absolute left-2 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 hover:bg-white/10 focus-visible:outline-white md:left-4"
                 >
                   <ChevronLeft size={24} aria-hidden="true" />
                 </button>
@@ -124,7 +124,7 @@ export function Photos({ photos, heading }: { photos: Photo[]; heading: string }
                   type="button"
                   onClick={() => step(1)}
                   aria-label="Next photo"
-                  className="absolute right-2 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/60 hover:bg-paper/10 focus-visible:outline-paper md:right-4"
+                  className="absolute right-2 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 hover:bg-white/10 focus-visible:outline-white md:right-4"
                 >
                   <ChevronRight size={24} aria-hidden="true" />
                 </button>
@@ -132,7 +132,7 @@ export function Photos({ photos, heading }: { photos: Photo[]; heading: string }
             )}
           </div>
 
-          <p className="px-4 py-4 text-center text-sm text-paper/80 md:px-6">
+          <p className="px-4 py-4 text-center text-sm text-white/80 md:px-6">
             {current.caption ?? current.alt}
           </p>
         </div>

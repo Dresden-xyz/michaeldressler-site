@@ -85,22 +85,32 @@ export const liquidGlassCarouselDefaultItems: LiquidGlassCarouselItem[] = [
   },
 ];
 
+/**
+ * Clear window in the centre, glass everywhere else. Sizes are half-extents in units of the
+ * container height (x is aspect-corrected), so 0.52 x 0.40 wraps a 4:3 panel at 52% height.
+ */
 const LENS = {
-  sizeX: 0.565,
-  sizeY: 1,
+  sizeX: 0.52,
+  sizeY: 0.4,
+  shape: 1,
+  squareRound: 0.55,
+  edgeSoft: 0.06,
+  glass: 1,
+  refract: 0.5,
+  frost: 1,
   posX: 0.5,
   posY: 0.5,
-  rotation: 65,
+  rotation: 0,
   spin: 0,
   zoom: 0,
-  dispersion: 11,
-  blur: 0,
+  dispersion: 9,
+  blur: 5,
   glow: 4.2,
   whiteGlow: 0.24,
   novaSize: 12,
-  blueRing: 6,
+  blueRing: 1.4,
   ringRadius: 0.49,
-  ringWidth: 0.014,
+  ringWidth: 0.005,
   shimmer: true,
   shimmerFreq: 12,
   shimmerSpeed: 3.5,
@@ -111,9 +121,9 @@ const LENS = {
   rimFreq1: 2,
   rimFreq2: 1,
   blueColor: "#009dff",
-  rimLine: 1.4,
+  rimLine: 0.7,
   rimLinePos: 0.488,
-  rimLineWidth: 0.003,
+  rimLineWidth: 0.0015,
   vignette: 0,
   vignetteSize: 0.3,
   samples: 16,
@@ -160,34 +170,31 @@ uniform vec2 uCenter;
 uniform float uSizeX;
 uniform float uSizeY;
 uniform float uAspect;
-uniform float uZoom;
+uniform float uRotation;
+uniform float uShape;
+uniform float uSquareRound;
+uniform float uEdgeSoft;
+uniform float uGlass;
+uniform float uRefract;
 uniform float uDispersion;
 uniform float uBlur;
-uniform float uGlow;
-uniform float uWhiteGlow;
-uniform float uNovaSize;
+uniform float uFrost;
+uniform float uRimTangential;
+uniform float uRimFreq1;
+uniform float uRimFreq2;
 uniform float uBlueRing;
-uniform float uRingRadius;
 uniform float uRingWidth;
+uniform float uGlow;
 uniform float uShimmer;
 uniform float uShimmerFreq;
 uniform float uShimmerSpeed;
 uniform float uShimmerDepth;
 uniform float uTime;
-uniform float uRimStart;
-uniform float uRimTangential;
-uniform float uRimInward;
-uniform float uRimFreq1;
-uniform float uRimFreq2;
 uniform vec3 uBlueColor;
 uniform float uRimLine;
-uniform float uRimLinePos;
 uniform float uRimLineWidth;
 uniform float uVignette;
 uniform float uVignetteSize;
-uniform float uShape;
-uniform float uSquareRound;
-uniform float uRotation;
 uniform int uSamples;
 
 const int MAX_SAMPLES = 16;
@@ -197,107 +204,99 @@ float sdRoundBox(vec2 p, vec2 b, float r){
   return min(max(q.x, q.y), 0.0) + length(max(q, 0.0)) - r;
 }
 
-vec3 discLens(vec2 center, float aspectCorrect, out float outA) {
-  vec2 p = (vUv - center);
-  p.x *= aspectCorrect;
-  float ca = cos(uRotation), sa = sin(uRotation);
-  p = mat2(ca, -sa, sa, ca) * p;
+// Normalised distance from the edge of the clear window: < 1 inside, 1 on the edge, > 1 outside.
+float windowDist(vec2 p) {
   vec2 halfSize = vec2(uSizeX, uSizeY);
-  float dist = length(p / halfSize);
-  outA = 0.0;
-
-  float maskND;
   if (uShape > 0.5) {
     float corner = min(uSizeX, uSizeY) * clamp(uSquareRound, 0.0, 1.0);
     float sd = sdRoundBox(p, halfSize, corner);
-    maskND = 1.0 + sd / min(uSizeX, uSizeY);
-  } else {
-    maskND = dist;
+    return 1.0 + sd / min(uSizeX, uSizeY);
   }
-  if (maskND > 1.0) return vec3(0.0);
-
-  float shapeND = clamp(maskND, 0.0, 1.0);
-  float nd = clamp(dist, 0.0, 1.0);
-  vec2 offset = vUv - center;
-  vec2 radialDir = normalize(offset + 1e-6);
-  vec2 tangentDir = vec2(-radialDir.y, radialDir.x);
-  float angle = atan(p.y, p.x);
-
-  float pull = uZoom * 0.30 * (nd * nd);
-  float rimStrength = smoothstep(uRimStart, 1.0, nd);
-  float fluidWave = sin(angle * uRimFreq1) * 0.55 + sin(angle * uRimFreq2) * 0.25;
-  float rScreen = (uSizeX + uSizeY) * 0.5;
-  vec2 rimOff = tangentDir * fluidWave * rimStrength * rScreen * uRimTangential;
-  vec2 rimPull = -radialDir * rimStrength * rScreen * uRimInward;
-
-  vec2 baseUV = center + offset * (1.0 - pull) + rimOff + rimPull;
-
-  float rimMask = smoothstep(0.55, 1.0, nd);
-  vec2 dispDir = offset * uDispersion * 0.004 * rimMask;
-  int N = uSamples;
-  if (N < 2) N = 2;
-  if (N > MAX_SAMPLES) N = MAX_SAMPLES;
-  vec3 col = vec3(0.0);
-  vec3 caW = vec3(0.0);
-  for (int i = 0; i < MAX_SAMPLES; i++) {
-    if (i >= N) break;
-    float t = float(i) / float(N - 1);
-    vec2 sUV = baseUV + dispDir * (t - 0.5);
-    vec3 s = texture2D(uTex, sUV).rgb;
-    vec3 w = vec3(
-      exp(-pow((t - 0.00) / 0.38, 2.0)),
-      exp(-pow((t - 0.50) / 0.38, 2.0)),
-      exp(-pow((t - 1.00) / 0.38, 2.0))
-    );
-    col += s * w;
-    caW += w;
-  }
-  col /= max(caW, vec3(0.001));
-
-  float blurFade = 1.0 - smoothstep(0.72, 0.98, nd);
-  if (uBlur > 0.01 && blurFade > 0.01) {
-    vec2 blurRad = vec2(uBlur) / uRes * blurFade;
-    vec3 bcol = vec3(0.0);
-    float btw = 0.0;
-    for (float a = 0.0; a < PI * 2.0; a += PI * 2.0 / 6.0) {
-      for (float rr = 0.4; rr <= 1.001; rr += 0.3) {
-        vec2 o = vec2(cos(a), sin(a)) * blurRad * rr;
-        float w = 1.0 - rr * 0.38;
-        bcol += texture2D(uTex, baseUV + o).rgb * w;
-        btw += w;
-      }
-    }
-    col = mix(bcol / btw, col, rimMask);
-  }
-
-  col *= mix(0.91, 1.0, smoothstep(0.0, 0.38, shapeND));
-
-  float r2 = shapeND * shapeND * 0.25;
-  float gs = max(uNovaSize * uGlow * 0.003, 0.004);
-  float nova = exp(-r2 / gs) + exp(-r2 / (gs * 7.0)) * 0.18;
-  nova *= uWhiteGlow * (uGlow / 17.0) * 1.15;
-  col += vec3(nova);
-
-  float dC = shapeND * 0.5;
-  float tR = clamp(uRingRadius, 0.1, 0.49);
-  float rW = max(uRingWidth, 0.003);
-  float ring = exp(-pow((dC - tR) / rW, 2.0));
-  ring *= uBlueRing * (uGlow / 17.0) * 1.8;
-  if (uShimmer > 0.5) ring *= sin(angle * uShimmerFreq + uTime * uShimmerSpeed) * uShimmerDepth + (1.0 - uShimmerDepth);
-  float ringAura = exp(-pow((dC - tR) / (rW * 6.0), 2.0)) * 0.28 * uBlueRing * (uGlow / 17.0);
-  col += uBlueColor * (ring + ringAura);
-  col += vec3(exp(-pow((dC - uRimLinePos) / max(uRimLineWidth, 0.0001), 2.0)) * uRimLine);
-
-  outA = smoothstep(1.0, 0.93, maskND);
-  return col;
+  return length(p / halfSize);
 }
 
 void main(){
   vec3 base = texture2D(uTex, vUv).rgb;
+  vec2 offset = vUv - uCenter;
+  vec2 p = offset;
+  p.x *= uAspect;
+  float ca = cos(uRotation), sa = sin(uRotation);
+  p = mat2(ca, -sa, sa, ca) * p;
+
+  float nd = windowDist(p);
+  // 0 inside the clear window, rising to 1 across a soft band at its edge.
+  float glass = smoothstep(1.0 - uEdgeSoft, 1.0 + uEdgeSoft, nd) * uGlass;
+  // How deep into the glass this pixel is; drives the strength of every distortion.
+  float depth = clamp((nd - 1.0) / 1.4, 0.0, 1.0);
+
   vec3 outc = base;
-  float a = 0.0;
-  vec3 c = discLens(uCenter, uAspect, a);
-  outc = mix(outc, c, a);
+  if (glass > 0.001) {
+    vec2 radialDir = normalize(offset + 1e-6);
+    vec2 tangentDir = vec2(-radialDir.y, radialDir.x);
+    float angle = atan(p.y, p.x);
+    float wave = sin(angle * uRimFreq1 + uTime * 0.6) * 0.55 + sin(angle * uRimFreq2 - uTime * 0.4) * 0.25;
+    float rScreen = (uSizeX + uSizeY) * 0.5;
+
+    // Refraction: pull samples toward the centre so the glass magnifies, plus a slow liquid ripple.
+    float pull = uRefract * (0.10 + 0.30 * depth);
+    vec2 baseUV = uCenter + offset * (1.0 - pull);
+    baseUV += tangentDir * wave * rScreen * uRimTangential * 0.06 * (0.3 + depth);
+
+    // Chromatic dispersion: red, green and blue sampled along slightly different radii.
+    vec2 dispDir = offset * uDispersion * 0.004 * (0.35 + depth);
+    int N = uSamples;
+    if (N < 2) N = 2;
+    if (N > MAX_SAMPLES) N = MAX_SAMPLES;
+    vec3 col = vec3(0.0);
+    vec3 caW = vec3(0.0);
+    for (int i = 0; i < MAX_SAMPLES; i++) {
+      if (i >= N) break;
+      float t = float(i) / float(N - 1);
+      vec2 sUV = baseUV + dispDir * (t - 0.5);
+      vec3 smp = texture2D(uTex, sUV).rgb;
+      vec3 w = vec3(
+        exp(-pow((t - 0.00) / 0.38, 2.0)),
+        exp(-pow((t - 0.50) / 0.38, 2.0)),
+        exp(-pow((t - 1.00) / 0.38, 2.0))
+      );
+      col += smp * w;
+      caW += w;
+    }
+    col /= max(caW, vec3(0.001));
+
+    // Frosted softening that grows with depth.
+    if (uBlur > 0.01 && depth > 0.01) {
+      vec2 blurRad = vec2(uBlur) / uRes * depth;
+      vec3 bcol = vec3(0.0);
+      float btw = 0.0;
+      for (float a = 0.0; a < PI * 2.0; a += PI * 2.0 / 6.0) {
+        for (float rr = 0.4; rr <= 1.001; rr += 0.3) {
+          vec2 o = vec2(cos(a), sin(a)) * blurRad * rr;
+          float w = 1.0 - rr * 0.38;
+          bcol += texture2D(uTex, baseUV + o).rgb * w;
+          btw += w;
+        }
+      }
+      col = mix(col, bcol / btw, 0.6 * depth);
+    }
+
+    // Glass tint: a little desaturation and dimming, deeper further out.
+    float lum = dot(col, vec3(0.299, 0.587, 0.114));
+    col = mix(col, vec3(lum), 0.25 * depth * uFrost);
+    col *= mix(1.0, 0.72, depth * uFrost);
+
+    outc = mix(base, col, glass);
+  }
+
+  // Glowing rim where the clear window meets the glass.
+  float edge = nd - 1.0;
+  float rW = max(uRingWidth, 0.003) * 2.0;
+  float ring = exp(-pow(edge / rW, 2.0)) * uBlueRing * (uGlow / 17.0) * 1.8;
+  if (uShimmer > 0.5) ring *= sin(atan(p.y, p.x) * uShimmerFreq + uTime * uShimmerSpeed) * uShimmerDepth + (1.0 - uShimmerDepth);
+  float ringAura = exp(-pow(edge / (rW * 5.0), 2.0)) * 0.10 * uBlueRing * (uGlow / 17.0);
+  outc += uBlueColor * (ring + ringAura) * uGlass;
+  outc += vec3(exp(-pow((edge - 0.012) / max(uRimLineWidth * 2.0, 0.0001), 2.0)) * uRimLine) * uGlass;
+
   if (uVignette > 0.001) {
     vec2 vc = vUv - 0.5;
     vc.x *= uAspect;
@@ -313,6 +312,7 @@ void main(){
 `;
 
 const LENS_FX_KEYS = [
+  "uGlass",
   "uDispersion",
   "uBlueRing",
   "uRimLine",
@@ -580,8 +580,12 @@ function createCarousel(
     uCenter: { value: new THREE.Vector2(0.5, 0.5) },
     uSizeX: { value: LENS.sizeX },
     uSizeY: { value: LENS.sizeY },
-    uShape: { value: 0 },
-    uSquareRound: { value: 0 },
+    uShape: { value: LENS.shape },
+    uSquareRound: { value: LENS.squareRound },
+    uEdgeSoft: { value: LENS.edgeSoft },
+    uGlass: { value: LENS.glass },
+    uRefract: { value: LENS.refract },
+    uFrost: { value: LENS.frost },
     uRotation: { value: 0 },
     uAspect: { value: W / H },
     uZoom: { value: LENS.zoom },
@@ -619,6 +623,15 @@ function createCarousel(
   const lensQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), lensMat);
   lensScene.add(lensQuad);
 
+  // On narrow (portrait) containers the clear window already spans the full width and the
+  // neighbours are off-screen, so push its edge off-canvas rather than draw glass bands
+  // across the caption area.
+  function applyWindowSize() {
+    const portrait = W / H < 0.8;
+    lensUniforms.uSizeY.value = portrait ? 0.62 : LENS.sizeY;
+  }
+  applyWindowSize();
+
   const focusState = {
     active: false,
     srcIndex: -1,
@@ -638,6 +651,7 @@ function createCarousel(
   let entryAnim: gsap.core.Timeline | null = null;
 
   const lensFxFull: Record<(typeof LENS_FX_KEYS)[number], number> = {
+    uGlass: lensUniforms.uGlass.value,
     uDispersion: lensUniforms.uDispersion.value,
     uBlueRing: lensUniforms.uBlueRing.value,
     uRimLine: lensUniforms.uRimLine.value,
@@ -1330,6 +1344,7 @@ function createCarousel(
     renderer.setPixelRatio(ratio);
     rt.setSize(W * ratio, H * ratio);
     lensUniforms.uRes.value.set(W * ratio, H * ratio);
+    applyWindowSize();
     if (!userInteracted) {
       scroll = centerForIndex(0);
       target = scroll;

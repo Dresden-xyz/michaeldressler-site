@@ -61,6 +61,8 @@ export interface Talk {
 
 export interface Photo extends ImageAsset {
   caption?: string;
+  /** CSS object-position for the grid tile crop, e.g. "50% 40%". Defaults to center. */
+  focus?: string;
 }
 
 export interface MediaItem {
@@ -302,6 +304,28 @@ export const site: SiteContent = {
 
   // Captions below were taken from signage visible in each photo. Review and edit freely.
   photos: [
+    {
+      src: "/images/photo-10.jpg",
+      alt: "Michael Dressler speaking into a microphone on a three-person panel at The Scaling Summit: House of AI, ETHDenver 2026",
+      caption: "The Scaling Summit: House of AI, ETHDenver 2026",
+      width: 2000,
+      height: 1333,
+    },
+    {
+      src: "/images/photo-11.jpg",
+      alt: "Michael Dressler speaking into a microphone to a seated crowd at an evening event",
+      width: 1127,
+      height: 2000,
+      focus: "50% 42%",
+    },
+    {
+      src: "/images/photo-12.jpg",
+      alt: "Michael Dressler speaking on the Agents Unleashed panel alongside fellow panelists",
+      caption: "Agents Unleashed, October 2025",
+      width: 960,
+      height: 1280,
+      focus: "50% 45%",
+    },
     {
       src: "/images/photo-01.jpg",
       alt: "Michael Dressler seated with two other panelists on stage at The Scaling Summit: House of AI, ETHDenver 2026",

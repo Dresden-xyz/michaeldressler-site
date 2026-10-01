@@ -63,6 +63,7 @@ export function Photos({ photos, heading }: { photos: Photo[]; heading: string }
                   fill
                   sizes="(min-width: 768px) 33vw, 50vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  style={photo.focus ? { objectPosition: photo.focus } : undefined}
                 />
               </span>
               {photo.caption && (

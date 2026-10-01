@@ -39,7 +39,7 @@ export function PhotoCarousel({
   );
 
   return (
-    <div className="h-[70vh] min-h-[420px] max-h-[760px] w-full overflow-hidden rounded-2xl border border-line">
+    <div className="h-[70vh] min-h-[420px] max-h-[760px] w-full overflow-hidden">
       <LiquidGlassCarousel
         items={items}
         background={BACKGROUND[theme]}

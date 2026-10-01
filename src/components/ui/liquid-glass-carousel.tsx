@@ -306,6 +306,9 @@ void main(){
     outc *= clamp(vig, 0.0, 1.0);
   }
   gl_FragColor = vec4(outc, 1.0);
+  // The scene pass renders in linear light; convert to the canvas's sRGB output here,
+  // otherwise the photos display far too dark.
+  #include <colorspace_fragment>
 }
 `;
 
@@ -565,7 +568,10 @@ function createCarousel(
   let lastInput = performance.now();
   let snapped = false;
 
-  const rt = new THREE.WebGLRenderTarget(W * dpr, H * dpr);
+  // Half-float keeps linear-light darks from banding before the sRGB conversion.
+  const rt = new THREE.WebGLRenderTarget(W * dpr, H * dpr, {
+    type: THREE.HalfFloatType,
+  });
   const lensScene = new THREE.Scene();
   const lensCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
   const lensUniforms = {

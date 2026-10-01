@@ -327,27 +327,6 @@ export const site: SiteContent = {
       focus: "50% 45%",
     },
     {
-      src: "/images/photo-01.jpg",
-      alt: "Michael Dressler seated with two other panelists on stage at The Scaling Summit: House of AI, ETHDenver 2026",
-      caption: "The Scaling Summit: House of AI, ETHDenver 2026",
-      width: 2000,
-      height: 1333,
-    },
-    {
-      src: "/images/photo-02.jpg",
-      alt: "Michael Dressler speaking into a microphone during a panel at The Scaling Summit: House of AI, ETHDenver 2026",
-      caption: "The Scaling Summit: House of AI, ETHDenver 2026",
-      width: 2000,
-      height: 1333,
-    },
-    {
-      src: "/images/photo-05.jpg",
-      alt: "Michael Dressler on a panel at Agents Unleashed, ArtScience Museum, October 2025",
-      caption: "Agents Unleashed, ArtScience Museum, October 2025",
-      width: 1280,
-      height: 960,
-    },
-    {
       src: "/images/photo-06.jpg",
       alt: "Michael Dressler speaking with a microphone on the Agents Unleashed panel",
       caption: "Agents Unleashed, October 2025",

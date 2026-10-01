@@ -59,6 +59,12 @@ export interface Talk {
   href?: string;
 }
 
+/** A speaker or event graphic that features Michael, linked to its source post. */
+export interface EventCard extends ImageAsset {
+  caption: string;
+  href?: string;
+}
+
 export interface Photo extends ImageAsset {
   caption?: string;
   /** CSS object-position for the grid tile crop, e.g. "50% 40%". Defaults to center. */
@@ -109,6 +115,8 @@ export interface SiteContent {
     upcoming: Talk[];
     /** Past appearances, most recent first */
     talks: Talk[];
+    /** Speaker cards and event graphics featuring Michael, most recent first */
+    cards: EventCard[];
   };
   photos: Photo[];
   media: MediaItem[];
@@ -127,6 +135,7 @@ export interface SiteContent {
     speaking: string;
     upcomingTalks: string;
     talks: string;
+    eventCards: string;
     photos: string;
     media: string;
     recognition: string;
@@ -276,28 +285,68 @@ export const site: SiteContent = {
           "The Scaling Summit: House of AI by 499, 0G & Hetu, ETHDenver, Denver",
         title:
           "Panel: How AI becomes trust-minimized, composable, and usable at scale",
-        date: "2026",
+        date: "Feb 16, 2026",
         href: "https://luma.com/ScalingEthDenver",
       },
       {
         event: "Dormint Privacy Masters, X Space",
-        title:
-          "Blockchain's third era: from proof of work to programmable networks to privacy",
+        title: "Privacy is the third era of crypto",
         date: "Nov 21, 2025",
         href: "https://x.com/Dormint_io/status/1991884068351611061",
       },
       {
         event: "Dormint Privacy Masters, X Space",
-        title:
-          "ZK proofs, FHE, and TEEs: secure data use, digital ownership, and sovereignty",
+        title: "Privacy season",
         date: "Nov 14, 2025",
         href: "https://x.com/Dormint_io/status/1989347545865404746",
       },
       {
         event: "Agents Unleashed, ArtScience Museum, Singapore",
-        title: "Panel: Prediction markets x AI",
+        title: "Panel: Prediction markets and AI: hype or substance?",
         date: "Oct 1, 2025",
         href: "https://x.com/autonolas/status/1978461055316840571",
+      },
+    ],
+    cards: [
+      {
+        src: "/images/cards/agentic-zero-speaker.png",
+        alt: "Michael Dressler's speaker portrait for Agentic Zero 2026",
+        caption: "Agentic Zero, SF Tech Week 2026",
+        width: 512,
+        height: 512,
+        href: "https://agenticzero.xyz/",
+      },
+      {
+        src: "/images/cards/scaling-summit-speaker.jpg",
+        alt: "Guest speaker card for Michael Dressler, Head of Success at 0G Labs, for The Scaling Summit at ETHDenver 2026",
+        caption: "Guest speaker, The Scaling Summit, ETHDenver 2026",
+        width: 1600,
+        height: 1596,
+        href: "https://x.com/499_Group/status/2019395585040597201",
+      },
+      {
+        src: "/images/cards/scaling-summit-panel.jpg",
+        alt: "Panel card listing Michael Dressler as moderator and speaker for 'How AI actually becomes trust-minimized, composable, and usable at scale' at The Scaling Summit",
+        caption: "Panel moderator and speaker, The Scaling Summit, ETHDenver 2026",
+        width: 1600,
+        height: 1200,
+        href: "https://luma.com/ScalingEthDenver",
+      },
+      {
+        src: "/images/cards/dormint-third-era.jpg",
+        alt: "Dormint Privacy Masters X Space card for 'Privacy is the third era of crypto' on Nov 21, 2025, featuring Michael from 0G",
+        caption: "Dormint Privacy Masters, Nov 21, 2025",
+        width: 1600,
+        height: 900,
+        href: "https://x.com/Dormint_io/status/1991884068351611061",
+      },
+      {
+        src: "/images/cards/dormint-privacy-season.jpg",
+        alt: "Dormint Privacy Masters X Space card for 'Privacy season' on Nov 14, 2025, featuring Michael from 0G",
+        caption: "Dormint Privacy Masters, Nov 14, 2025",
+        width: 1600,
+        height: 900,
+        href: "https://x.com/Dormint_io/status/1989347545865404746",
       },
     ],
   },
@@ -413,6 +462,7 @@ export const site: SiteContent = {
     speaking: "Topics I speak about",
     upcomingTalks: "Upcoming",
     talks: "Past talks",
+    eventCards: "Event features",
     photos: "On stage and around the ecosystem",
     media: "Press, podcasts & video",
     recognition: "Awards & honors",
@@ -430,7 +480,8 @@ export function getSections(content: SiteContent): { id: SectionId; label: strin
       show:
         content.speaking.topics.length > 0 ||
         content.speaking.upcoming.length > 0 ||
-        content.speaking.talks.length > 0,
+        content.speaking.talks.length > 0 ||
+        content.speaking.cards.length > 0,
     },
     { id: "photos", label: "Photos", show: content.photos.length > 0 },
     { id: "media", label: "Media", show: content.media.length > 0 },

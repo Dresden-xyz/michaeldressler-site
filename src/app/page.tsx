@@ -49,6 +49,7 @@ export default function HomePage() {
             heading={site.headings.speaking}
             upcomingHeading={site.headings.upcomingTalks}
             talksHeading={site.headings.talks}
+            cardsHeading={site.headings.eventCards}
           />
         )}
         {has("photos") && <Photos photos={site.photos} heading={site.headings.photos} />}

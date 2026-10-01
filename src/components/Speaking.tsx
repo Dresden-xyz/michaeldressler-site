@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import type { SiteContent, Talk } from "@/content/site";
+import { EventCards } from "./EventCards";
 import { Section } from "./Section";
 
 function TalkList({ heading, talks }: { heading: string; talks: Talk[] }) {
@@ -62,11 +63,13 @@ export function Speaking({
   heading,
   upcomingHeading,
   talksHeading,
+  cardsHeading,
 }: {
   speaking: SiteContent["speaking"];
   heading: string;
   upcomingHeading: string;
   talksHeading: string;
+  cardsHeading: string;
 }) {
   const hasLists = speaking.upcoming.length > 0 || speaking.talks.length > 0;
   return (
@@ -97,6 +100,12 @@ export function Speaking({
           </div>
         )}
       </div>
+
+      {speaking.cards.length > 0 && (
+        <div className="mt-20">
+          <EventCards heading={cardsHeading} cards={speaking.cards} />
+        </div>
+      )}
     </Section>
   );
 }
